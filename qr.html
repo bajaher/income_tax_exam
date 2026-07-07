@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مولّد رمز QR — محاكي اختبار ضريبة الدخل</title>
+<style>
+  body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:#f4f6fb;color:#15233b;
+       display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px;}
+  .card{background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(21,35,59,.1);
+        padding:28px;max-width:430px;width:100%;text-align:center;}
+  h2{margin-top:0;font-size:1.1rem;}
+  p{color:#5b6b85;font-size:.85rem;}
+  input{width:100%;box-sizing:border-box;padding:13px;border:2px solid #e2e8f2;border-radius:12px;
+        font-size:.95rem;direction:ltr;text-align:left;}
+  button{margin-top:12px;width:100%;padding:14px;border:none;border-radius:12px;background:#0f6e5d;
+         color:#fff;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;}
+  img{margin-top:18px;max-width:280px;width:100%;border:1px solid #e2e8f2;border-radius:12px;}
+  .hint{font-size:.75rem;color:#8a97ac;margin-top:14px;}
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>📱 مولّد رمز QR لرابط الاختبار</h2>
+  <p>بعد رفع مجلد المحاكي على GitHub Pages أو أي استضافة ثابتة، الصق رابط صفحة الاختبار هنا ثم اطبع الرمز أو اعرضه للطلاب ليمسحوه بكاميرا الجوال.</p>
+  <input id="url" type="url" placeholder="https://username.github.io/tax-exam/" value="">
+  <button onclick="gen()">إنشاء رمز QR</button>
+  <div id="out"></div>
+  <p class="hint">ملاحظة: توليد الرمز يحتاج اتصالًا بالإنترنت لمرة واحدة فقط، ثم يمكن حفظ الصورة وطباعتها. تطبيق الاختبار نفسه يعمل دون إنترنت.</p>
+</div>
+<script>
+function gen(){
+  var u = document.getElementById("url").value.trim();
+  if(!u){ alert("الرجاء إدخال الرابط أولًا"); return; }
+  document.getElementById("out").innerHTML =
+    '<img alt="QR" src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&data='+encodeURIComponent(u)+'">'+
+    '<p class="hint">اضغط مطولًا على الصورة لحفظها أو مشاركتها.</p>';
+}
+</script>
+</body>
+</html>
