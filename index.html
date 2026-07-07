@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f6e5d">
+<title>محاكي اختبار ضريبة الدخل | محاسبة الزكاة والضريبة</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<header class="appbar">
+  <div class="appbar-inner">
+    <div class="brand">محاكي اختبار ضريبة الدخل
+      <small>محاسبة الزكاة والضريبة — د. محمد صالح باجاحر</small>
+    </div>
+    <button id="btn-theme" class="iconbtn" title="الوضع الليلي/النهاري">🌙</button>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ============ لوحة البداية ============ -->
+  <section id="screen-dash">
+    <div class="card hero">
+      <div class="logo">📊</div>
+      <h1 id="d-course">محاسبة الزكاة والضريبة – ضريبة الدخل</h1>
+      <div class="sub" id="d-instructor"></div>
+      <div class="sub" id="d-chapter"></div>
+    </div>
+
+    <div class="statgrid">
+      <div class="stat"><div class="num" id="d-bank">—</div><div class="lbl">سؤال في البنك</div></div>
+      <div class="stat"><div class="num" id="d-qn">—</div><div class="lbl">سؤالًا في كل اختبار</div></div>
+      <div class="stat"><div class="num" id="d-dur">—</div><div class="lbl">مدة الاختبار</div></div>
+      <div class="stat"><div class="num" id="d-pass">—</div><div class="lbl">درجة النجاح</div></div>
+    </div>
+
+    <div class="card">
+      <div class="progress-summary" id="d-progress"></div>
+    </div>
+
+    <button id="btn-start" class="btn btn-primary btn-block">🚀 ابدأ الاختبار الآن</button>
+    <button id="btn-clear" class="btn btn-ghost btn-block hidden" style="margin-top:10px">🗑 مسح سجل المحاولات</button>
+
+    <div class="card" style="font-size:.82rem;color:var(--muted)">
+      <b style="color:var(--text)">تعليمات:</b>
+      يتم توليد اختبار مختلف في كل مرة (ترتيب الأسئلة والخيارات وبعض الأرقام تتغير عشوائيًا).
+      يمكنك التنقل بين الأسئلة، وتعليم أي سؤال للمراجعة، ومتابعة حالتك من لوحة الأسئلة.
+      عند انتهاء الوقت يُسلَّم الاختبار تلقائيًا. بعد التسليم ستحصل على تقرير مفصل
+      بالدرجة والأداء حسب الموضوعات مع شرح وافٍ لكل سؤال.
+    </div>
+  </section>
+
+  <!-- ============ شاشة الاختبار ============ -->
+  <section id="screen-exam" class="hidden">
+    <div class="exam-top">
+      <span class="qcount" id="qcount">—</span>
+      <span class="timer" id="timer">60:00</span>
+    </div>
+    <div class="progressbar"><div id="pbar"></div></div>
+
+    <div class="card">
+      <div class="qmeta" id="qmeta"></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="qbody"></div>
+
+      <div class="exam-nav">
+        <button id="btn-prev" class="btn btn-outline">➡ السابق</button>
+        <button id="btn-flag" class="btn btn-ghost btn-flag">☆ للمراجعة</button>
+        <button id="btn-skip" class="btn btn-ghost">تخطي</button>
+        <button id="btn-next" class="btn btn-primary">التالي ⬅</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <b style="font-size:.85rem">لوحة الأسئلة</b>
+      <div class="palette" id="palette"></div>
+      <div class="legend">
+        <span class="l-ans">تمت الإجابة</span>
+        <span class="l-flag">معلَّم للمراجعة</span>
+        <span>بدون إجابة</span>
+      </div>
+      <button id="btn-submit" class="btn btn-danger btn-block" style="margin-top:14px">✋ إنهاء وتسليم الاختبار</button>
+    </div>
+  </section>
+
+  <!-- ============ شاشة النتائج ============ -->
+  <section id="screen-result" class="hidden">
+    <div class="card" style="text-align:center">
+      <p id="r-auto" class="hidden" style="color:var(--warn);font-weight:700">⏰ انتهى الوقت — تم تسليم الاختبار تلقائيًا</p>
+      <div class="score-ring" id="score-ring">
+        <div id="score-inner" style="background:var(--card);width:118px;height:118px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center"></div>
+      </div>
+      <div class="resgrid">
+        <div class="stat"><div class="num" style="color:var(--ok)" id="r-correct">0</div><div class="lbl">إجابات صحيحة</div></div>
+        <div class="stat"><div class="num" style="color:var(--bad)" id="r-wrong">0</div><div class="lbl">إجابات خاطئة</div></div>
+        <div class="stat"><div class="num" style="color:var(--warn)" id="r-skip">0</div><div class="lbl">أسئلة متروكة</div></div>
+        <div class="stat"><div class="num" id="r-time">00:00</div><div class="lbl">الوقت المستغرق</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <b>الأداء حسب الموضوعات</b>
+      <div id="topic-perf" style="margin-top:12px"></div>
+    </div>
+
+    <button id="btn-review" class="btn btn-primary btn-block">📖 مراجعة الأسئلة والإجابات</button>
+    <button id="btn-retry" class="btn btn-outline btn-block" style="margin-top:10px">🔄 اختبار جديد</button>
+    <button id="btn-home" class="btn btn-ghost btn-block" style="margin-top:10px">🏠 العودة للرئيسية</button>
+  </section>
+
+  <!-- ============ شاشة المراجعة ============ -->
+  <section id="screen-review" class="hidden">
+    <button id="btn-back-result" class="btn btn-outline btn-block">⬅ العودة للنتيجة</button>
+    <div id="review-list"></div>
+  </section>
+
+</main>
+
+<!-- مودال تأكيد التسليم -->
+<div id="modal" class="modal-backdrop hidden">
+  <div class="modal">
+    <h3>تسليم الاختبار</h3>
+    <p id="m-text"></p>
+    <div class="row">
+      <button id="m-cancel" class="btn btn-ghost">متابعة الحل</button>
+      <button id="m-ok" class="btn btn-danger">تسليم نهائي</button>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="questions.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
